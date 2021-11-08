@@ -39,6 +39,7 @@ export function NewActivityModal({isOpen,onRequestClose}:NewActivityModalProps){
                 </button>
 
                 <form onSubmit={onSubmit}>
+
                     <input 
                         type="text"
                         placeholder="Unidade Curricular"
@@ -66,6 +67,7 @@ export function NewActivityModal({isOpen,onRequestClose}:NewActivityModalProps){
                     <button type="submit">
                         Cadastrar
                     </button>
+                    
                 </form>
                 
             </Container>
