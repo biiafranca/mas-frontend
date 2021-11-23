@@ -1,8 +1,9 @@
 import {FiLogIn, FiMail, FiLock} from "react-icons/fi"
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {useForm} from 'react-hook-form';
 import {Button} from "../../components/Button";
 import {Container,Content,Background,Error,FormContainer,InputContainer} from "./styles";
+import {useAuth} from '../../hooks/Auth';
 import api from "../../services/api";
 
 
@@ -13,9 +14,17 @@ interface FormData {
 
 export function Login(){
 
+    const {signIn} = useAuth();
+
+    const history = useHistory();
+
     const {register, handleSubmit, formState: {errors}} = useForm<FormData>();
 
-    const onSubmit = handleSubmit(data => api.post('/auth', data).then(response => alert(response.data)));
+    const onSubmit = handleSubmit(async data => await signIn({
+        email: data.email,
+        password: data.password
+    }).then(() => history.push('/dashboard'))
+);
 
     return(
         <Container>
