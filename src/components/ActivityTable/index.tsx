@@ -38,7 +38,7 @@ export function ActivityTable() {
                 </thead>
                 <tbody>
                     {
-                        activies.map(activity => {
+                        activities.map(activity => {
                             return (
                                 <tr key={activity.id}>
                                     <td>{activity.course_unit.name}</td>
