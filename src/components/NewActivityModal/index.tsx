@@ -87,7 +87,7 @@ export function NewActivityModal({isOpen,onRequestClose}:NewActivityModalProps){
                         {...register("activity_date", {required:true})}
                     />
                     
-                    {errors.activiy && <Error> O preenchimendo do campo é obrigatório </Error>}
+                    {errors.activity_date && <Error> O preenchimendo do campo é obrigatório </Error>}
                     
                     <button type="submit">
                         Cadastrar
