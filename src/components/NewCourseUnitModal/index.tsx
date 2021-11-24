@@ -18,7 +18,7 @@ export function NewCourseUnitModal({isOpen,onRequestClose}:NewCourseUnitModalPro
 
     const {register, handleSubmit, formState : {errors}} = useForm<NewCourseUnitModalData>();
 
-    const onSubmit = handleSubmit(data => api.post('/courseunit', data).then(response => alert(response.data)));
+    const onSubmit = handleSubmit(data => api.post('/courseunit', data).then(onRequestClose));
 
     return(
         <Modal

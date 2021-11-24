@@ -3,6 +3,7 @@ import {FiX} from 'react-icons/fi';
 import {Container, Error} from './styles';
 import {useForm} from 'react-hook-form';
 import api from "../../services/api";
+import React, { useEffect, useState } from 'react';
 
 interface NewActivityModalProps {
     isOpen: boolean;
@@ -10,16 +11,30 @@ interface NewActivityModalProps {
 }
 
 interface NewActivityModalData {
-    courseunit: string;
-    activiy: string;
-    date: Date;
+    course_unit_id: string;
+    name: string;
+    activity_date: Date;
+    grade: Number;
+}
+
+interface CourseUnit {
+    id: string;
+    name: string;
+    description: string;
 }
 
 export function NewActivityModal({isOpen,onRequestClose}:NewActivityModalProps){
 
+    const [courseUnits, setCourseUnits] = useState<CourseUnit[]>([]);
+
+    useEffect(() => {
+        api.get('/courseunit')
+            .then(response => setCourseUnits(response.data))
+    },[])
+
     const {register, handleSubmit, formState: {errors}} = useForm<NewActivityModalData>()
 
-    const onSubmit = handleSubmit(data => api.post('/activity', data).then(response => alert(response.data)));
+    const onSubmit = handleSubmit(data => api.post('/activity', data).then(onRequestClose));
 
     return(
         <Modal
@@ -40,27 +55,36 @@ export function NewActivityModal({isOpen,onRequestClose}:NewActivityModalProps){
                 </button>
 
                 <form onSubmit={onSubmit}>
-
-                    <input 
-                        type="text"
-                        placeholder="Unidade Curricular"
-                        {...register("courseunit", {required:true})}
-                    />
-
-                    {errors.courseunit && <Error> O preenchimendo do campo é obrigatório </Error>} 
+                    <select {...register("course_unit_id")}>
+                        <option selected value="">Selecione a Unidade Curricular</option>
+                        {courseUnits.map(courseUnit => {
+                            return (
+                                <option value={courseUnit.id}>{courseUnit.name}</option>
+                            )
+                        })}
+                    </select>
+                    {errors.courseUnitId && <Error>O prenchimento do campo é obrigatório</Error>}
 
                     <input 
                         type="text"
                         placeholder="Atividade"
-                        {...register("activiy", {required:true})}
+                        {...register("name", {required:true})}
                     />
 
                     {errors.activiy && <Error> O preenchimendo do campo é obrigatório </Error>}
 
                     <input 
+                        type="number"
+                        step=".01"
+                        placeholder="Nota da avaliação"
+                        {...register("grade")}
+                    />
+                    {errors.grade && <Error>O prenchimento do campo é obrigatório</Error>}
+                    
+                    <input 
                         type="date"
                         placeholder="Data da Atividade"
-                        {...register("date", {required:true})}
+                        {...register("activity_date", {required:true})}
                     />
                     
                     {errors.activiy && <Error> O preenchimendo do campo é obrigatório </Error>}
