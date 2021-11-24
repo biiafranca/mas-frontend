@@ -41,7 +41,7 @@ export function ActivityTable() {
                         activities.map(activity => {
                             return (
                                 <tr key={activity.id}>
-                                    <td>{activity.course_unit.name}</td>
+                                    <td>-</td>
                                     <td>{activity.name}</td>
                                     <td>{activity.grade}</td>
                                     <td>{format(parseISO(activity.activity_date), 'dd/MM/yyyy')}</td>
