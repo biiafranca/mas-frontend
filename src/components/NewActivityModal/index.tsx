@@ -71,7 +71,7 @@ export function NewActivityModal({isOpen,onRequestClose}:NewActivityModalProps){
                         {...register("name", {required:true})}
                     />
 
-                    {errors.activiy && <Error> O preenchimendo do campo é obrigatório </Error>}
+                    {errors.name && <Error> O preenchimendo do campo é obrigatório </Error>}
 
                     <input 
                         type="number"
