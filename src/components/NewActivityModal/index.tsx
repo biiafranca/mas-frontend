@@ -63,7 +63,7 @@ export function NewActivityModal({isOpen,onRequestClose}:NewActivityModalProps){
                             )
                         })}
                     </select>
-                    {errors.courseUnitId && <Error>O prenchimento do campo é obrigatório</Error>}
+                    {errors.course_unit_id && <Error>O prenchimento do campo é obrigatório</Error>}
 
                     <input 
                         type="text"
